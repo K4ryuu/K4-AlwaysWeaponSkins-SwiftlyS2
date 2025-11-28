@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SwiftlyS2.CS2" Version="1.0.3-beta.20" ExcludeAssets="runtime" PrivateAssets="all" />
+    <PackageReference Include="SwiftlyS2.CS2" Version="*-*" ExcludeAssets="runtime" PrivateAssets="all" />
     <None Update="resources\**\*.*" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
