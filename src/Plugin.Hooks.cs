@@ -48,7 +48,7 @@ public sealed partial class Plugin
 
 			try
 			{
-				if (teamChanged && player != null && player.IsValid)
+				if (teamChanged && player?.IsValid == true)
 					SetPlayerTeam(player, originalTeam);
 
 				if (player != null && !string.IsNullOrEmpty(classname))
