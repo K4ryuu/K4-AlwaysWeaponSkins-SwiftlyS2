@@ -37,7 +37,6 @@ public sealed partial class Plugin(ISwiftlyCore core) : BasePlugin(core)
 		LoadConfig();
 		InitializeNativeFunctions();
 		Core.GameEvent.HookPost<EventItemPickup>(OnItemPickup);
-		Core.Logger.LogInformation("K4 Always Weapon Skins loaded.");
 	}
 
 	public override void Unload()
