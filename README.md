@@ -50,15 +50,15 @@ To use this server addon, you'll need the following dependencies installed:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- CONFIGURATION -->
+<!-- CONFIGURATkION -->
 
 ## Configuration
 
-| Option | Description | Default |
-|--------|-------------|---------|
-| `ApplyToMapWeapons` | Apply skins to weapons picked up from the map | `true` |
-| `ApplyOnNoPreviousOwner` | Apply skins when weapon has no previous owner | `true` |
-| `ApplyOnPreviousOwner` | Apply skins when weapon was dropped by another player | `true` |
+| Option                   | Description                                           | Default |
+| ------------------------ | ----------------------------------------------------- | ------- |
+| `ApplyToMapWeapons`      | Apply skins to weapons picked up from the map         | `true`  |
+| `ApplyOnNoPreviousOwner` | Apply skins when weapon has no previous owner         | `true`  |
+| `ApplyOnPreviousOwner`   | Apply skins when weapon was dropped by another player | `true`  |
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
