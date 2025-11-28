@@ -10,7 +10,7 @@ namespace K4AlwaysWeaponSkins;
 
 [PluginMetadata(
 	Id = "k4.alwaysweaponskins",
-	Version = "1.0.0",
+	Version = "1.0.1",
 	Name = "K4 - Always Weapon Skins",
 	Author = "K4ryuu",
 	Description = "Apply inventory skins to opposing teams as well."
