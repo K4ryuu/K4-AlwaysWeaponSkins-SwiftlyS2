@@ -1,6 +1,8 @@
 using System.Runtime.InteropServices;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using SwiftlyS2.Shared;
 using SwiftlyS2.Shared.GameEventDefinitions;
 using SwiftlyS2.Shared.Memory;
@@ -10,14 +12,17 @@ namespace K4AlwaysWeaponSkins;
 
 [PluginMetadata(
 	Id = "k4.alwaysweaponskins",
-	Version = "1.0.1",
+	Version = "1.0.2",
 	Name = "K4 - Always Weapon Skins",
 	Author = "K4ryuu",
 	Description = "Apply inventory skins to opposing teams as well."
 )]
 public sealed partial class Plugin(ISwiftlyCore core) : BasePlugin(core)
 {
-	private PluginConfig _config = new();
+	private const string ConfigFileName = "k4-alwaysweaponskins.jsonc";
+	private const string ConfigSection = "K4AlwaysWeaponSkins";
+
+	public static IOptionsMonitor<PluginConfig> Config { get; private set; } = null!;
 
 	[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 	private delegate void FindMatchingWeaponsDelegate(nint pPawn, nint weaponName, int team, byte searchInventory, nint outVector);
@@ -34,7 +39,21 @@ public sealed partial class Plugin(ISwiftlyCore core) : BasePlugin(core)
 
 	public override void Load(bool hotReload)
 	{
-		LoadConfig();
+		Core.Configuration
+			.InitializeJsonWithModel<PluginConfig>(ConfigFileName, ConfigSection)
+			.Configure(builder =>
+			{
+				builder.AddJsonFile(ConfigFileName, optional: false, reloadOnChange: true);
+			});
+
+		ServiceCollection services = new();
+		services.AddSwiftly(Core)
+			.AddOptions<PluginConfig>()
+			.BindConfiguration(ConfigFileName);
+
+		var provider = services.BuildServiceProvider();
+		Config = provider.GetRequiredService<IOptionsMonitor<PluginConfig>>();
+
 		InitializeNativeFunctions();
 		Core.GameEvent.HookPost<EventItemPickup>(OnItemPickup);
 	}
@@ -46,18 +65,6 @@ public sealed partial class Plugin(ISwiftlyCore core) : BasePlugin(core)
 
 		_savedAmmo.Clear();
 		_pickupLocks.Clear();
-	}
-
-	private void LoadConfig()
-	{
-		const string FileName = "config.jsonc";
-		const string Section = "K4AlwaysWeaponSkins";
-
-		Core.Configuration
-			.InitializeJsonWithModel<PluginConfig>(FileName, Section)
-			.Configure(cfg => cfg.AddJsonFile(Core.Configuration.GetConfigPath(FileName), optional: false, reloadOnChange: false));
-
-		_config = Core.Configuration.Manager.GetSection(Section).Get<PluginConfig>() ?? new();
 	}
 
 	private void InitializeNativeFunctions()

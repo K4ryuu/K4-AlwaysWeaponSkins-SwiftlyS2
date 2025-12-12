@@ -22,7 +22,7 @@ public sealed partial class Plugin
 
 		try
 		{
-			if (!_config.ApplyToMapWeapons || string.IsNullOrEmpty(itemName) || _pickupLocks.Contains(lockKey))
+			if (!Config.CurrentValue.ApplyToMapWeapons || string.IsNullOrEmpty(itemName) || _pickupLocks.Contains(lockKey))
 				return HookResult.Continue;
 
 			_pickupLocks.Add(lockKey);
@@ -47,7 +47,7 @@ public sealed partial class Plugin
 				if (prevOwner?.Address == player.Controller.Address)
 					continue;
 
-				bool shouldApply = (prevOwner != null && _config.ApplyOnPreviousOwner) || (prevOwner == null && _config.ApplyOnNoPreviousOwner);
+				bool shouldApply = (prevOwner != null && Config.CurrentValue.ApplyOnPreviousOwner) || (prevOwner == null && Config.CurrentValue.ApplyOnNoPreviousOwner);
 				if (!shouldApply)
 					continue;
 
