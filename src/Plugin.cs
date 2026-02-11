@@ -12,7 +12,7 @@ namespace K4AlwaysWeaponSkins;
 
 [PluginMetadata(
 	Id = "k4.alwaysweaponskins",
-	Version = "1.0.2",
+	Version = "1.0.3",
 	Name = "K4 - Always Weapon Skins",
 	Author = "K4ryuu",
 	Description = "Apply inventory skins to opposing teams as well."
@@ -48,8 +48,8 @@ public sealed partial class Plugin(ISwiftlyCore core) : BasePlugin(core)
 
 		ServiceCollection services = new();
 		services.AddSwiftly(Core)
-			.AddOptions<PluginConfig>()
-			.BindConfiguration(ConfigFileName);
+			.AddOptionsWithValidateOnStart<PluginConfig>()
+			.BindConfiguration(ConfigSection);
 
 		var provider = services.BuildServiceProvider();
 		Config = provider.GetRequiredService<IOptionsMonitor<PluginConfig>>();
