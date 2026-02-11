@@ -66,8 +66,12 @@ public sealed partial class Plugin
 
 	private void ScheduleWeaponReplacement(IPlayer player, CCSWeaponBase weapon)
 	{
-		var weaponName = weapon.DesignerName;
 		var playerId = player.PlayerID;
+		var weaponID = weapon.AttributeManager.Item.ItemDefinitionIndex;
+		var weaponName = Core.Helpers.GetClassnameByDefinitionIndex(weaponID) ?? string.Empty;
+
+		if (string.IsNullOrEmpty(weaponName))
+			return;
 
 		SaveAmmoState(playerId, weaponName, weapon);
 
