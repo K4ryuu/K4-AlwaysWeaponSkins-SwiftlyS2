@@ -1,3 +1,24 @@
+# Changelog
+
+All notable changes to K4-AlwaysWeaponSkins will be documented in this file.
+
+## [1.0.3] - 2026-02-11
+
+### Fixed
+
+- **CRITICAL**: Fixed configuration binding bug in `Load()` method
+  - Changed `.BindConfiguration(ConfigFileName)` to `.BindConfiguration(ConfigSection)`
+  - This bug caused all config values to use hardcoded defaults instead of reading from `k4-alwaysweaponskins.jsonc`
+  - **Impact**: Plugin configuration was completely non-functional
+
+- Fixed USP-S/P2000 weapon substitution issue
+  - Use `ItemDefinitionIndex` instead of `DesignerName` for weapon identification
+  - Resolves issue where CT players with USP-S loadout received P2000 instead
+  - `Core.Helpers.GetClassnameByDefinitionIndex()` returns correct weapon classname based on item ID
+  - Also fixes potential issues with M4A4/M4A1-S and other alternative weapons
+
+## [1.0.2] - 2025-12-12
+
 -- 2025.12.12 - 1.0.2
 
 - refactor: Migrate config system to IOptionsMonitor pattern for hot-reload support
