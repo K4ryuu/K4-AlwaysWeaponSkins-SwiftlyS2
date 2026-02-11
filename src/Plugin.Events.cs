@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Logging;
 using SwiftlyS2.Shared.GameEventDefinitions;
 using SwiftlyS2.Shared.Misc;
+using SwiftlyS2.Shared.Players;
 using SwiftlyS2.Shared.SchemaDefinitions;
 
 namespace K4AlwaysWeaponSkins;
@@ -63,7 +64,7 @@ public sealed partial class Plugin
 		return HookResult.Continue;
 	}
 
-	private void ScheduleWeaponReplacement(SwiftlyS2.Shared.Players.IPlayer player, CCSWeaponBase weapon)
+	private void ScheduleWeaponReplacement(IPlayer player, CCSWeaponBase weapon)
 	{
 		var weaponName = weapon.DesignerName;
 		var playerId = player.PlayerID;
@@ -100,7 +101,7 @@ public sealed partial class Plugin
 		);
 	}
 
-	private void RestoreAmmoState(SwiftlyS2.Shared.Players.IPlayer player, string weaponName)
+	private void RestoreAmmoState(IPlayer player, string weaponName)
 	{
 		try
 		{
