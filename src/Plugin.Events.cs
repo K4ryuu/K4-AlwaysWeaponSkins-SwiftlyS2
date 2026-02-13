@@ -81,6 +81,9 @@ public sealed partial class Plugin
 			if (currentPlayer?.IsValid != true || currentPlayer.PlayerPawn?.ItemServices == null)
 				return;
 
+			if (weapon?.IsValid != true)
+				return;
+
 			weapon.AddEntityIOEvent("Kill", string.Empty);
 			currentPlayer.PlayerPawn.ItemServices.GiveItem(weaponName);
 

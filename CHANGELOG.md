@@ -2,6 +2,17 @@
 
 All notable changes to K4-AlwaysWeaponSkins will be documented in this file.
 
+## [1.0.4] - 2026-02-13
+
+### Fixed
+
+- **CRITICAL**: Fixed entity validity craissuesh in weapon replacement system
+  - Added entity validation check before `AddEntityIOEvent()` call in scheduled callbacks
+  - Prevents `System.InvalidOperationException: The entity instance is no longer valid`
+  - **Root Cause**: Weapon entities could be destroyed between pickup detection and scheduled replacement
+  - **Impact**: Plugin would give an error when weapons were dropped/destroyed before replacement callback executed
+  - Affects scenarios: rapid weapon pickups, round transitions, weapon drops during replacement
+
 ## [1.0.3] - 2026-02-11
 
 ### Fixed
